@@ -16,9 +16,9 @@
   "scripts": {
     "clean": "rimraf node_modules doc typings && npm cache clean",
     "clean-install": "npm run clean && npm install",
-    "clean-build": "rimraf __build__",
+    "clean-dist": "rimraf dist",
     "clean-doc": "rimraf doc",
-    "build": "webpack --progress --profile --colors --display-error-details --display-cached",
+    "build": "npm run clean-dist && webpack --progress --profile --colors --display-error-details --display-cached",
     "build-watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
     "build-production": "webpack --progress --profile --colors --display-error-details --display-cached --optimize-occurence-order --optimize-minimize --optimize-dedupe",
     "server": "webpack-dev-server --inline --progress --profile --colors --display-error-details --display-cached --port 3000",
@@ -68,6 +68,7 @@
     "typescript": "^1.7.3",
     "typings": "^0.3.1",
     "url-loader": "^0.5.6",
+    "sass-loader": "^3.1.2",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.12.1"
   }
