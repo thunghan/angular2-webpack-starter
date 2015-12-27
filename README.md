@@ -218,6 +218,10 @@ We have good experience using these editors:
 * [babel-angular2-app (Shuhei Kagawa)](https://github.com/shuhei/babel-angular2-app)
   * Client only, Minimalist, Babel, ES6+, browserify
 
+
+# TODO -
+* Reorganize folder structure
+
 ___
 
 enjoy — **AngularClass**

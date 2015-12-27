@@ -1,0 +1,14 @@
+<header>
+  <h1 class="title">Hello {{ title.value }}</h1>
+  <nav>
+    <a [routerLink]=" ['Home'] ">Home</a>
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer x-large>
+  WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
+</footer>

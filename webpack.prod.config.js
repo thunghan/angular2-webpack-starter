@@ -1,34 +1,33 @@
 var path = require('path');
 var webpack = require('webpack');
 
-// Webpack Plugins
+// Webpack plugins
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
-    // for faster builds use 'eval'
-    devtool: 'source-map',
-    debug: true, // remove in production
 
     entry: {
-        'vendor': './src/vendor.ts', // third party libraries
-        'app': './src/bootstrap.ts' // angular app
+        'app': './app/bootstrap/bootstrap.ts',
+        'vendor': './app/bootstrap/vendor.ts'
     },
 
-    // Config for our build files
     output: {
         path: root('dist'),
-        filename: '[name].js',
-        sourceMapFilename: '[name].map',
+        filename: '[name].bundle.js',
+        sourceMapFilename: '[name].bundle.map',
         chunkFilename: '[id].chunk.js'
     },
 
     resolve: {
-        // ensure loader extensions match
         extensions: ['', '.ts', '.tsx', '.js', '.json', '.css', '.html']
     },
 
     module: {
-        preLoaders: [{test: /\.tsx?$/, loader: 'tslint'}],
+        preLoaders: [
+            // Lint support for .ts and .tsx files
+            {test: /\.tsx?$/, loader: 'tslint'}
+        ],
         loaders: [
             // Support for .ts and .tsx files
             {
@@ -42,10 +41,10 @@ module.exports = {
                         2375  // 2375 -> Duplicate string index signature
                     ]
                 },
-                exclude: [/\.(spec|e2e)\.ts$/, /node_modules/]
+                exclude: [/\.(spec|e2e)\.tsx?$/, /node_modules/]
             },
 
-            // Support for *.json files
+            // Support for .json files
             {test: /\.json$/, loader: 'json'},
 
             // Support for CSS as raw text
@@ -61,33 +60,22 @@ module.exports = {
     },
 
     plugins: [
-        new CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: Infinity}),
-        new CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor']})
-        // include uglify in production
+        new CommonsChunkPlugin({name: 'vendor', minChunks: Infinity}),
+        new CommonsChunkPlugin({name: 'common', minChunks: 2, chunks: ['app', 'vendor']}),
+        new UglifyJsPlugin(),
+        new DefinePlugin({
+            DEVELOPMENT: false
+        })
     ],
 
-    // Other module loader config
     tslint: {
         emitErrors: false,
         failOnHint: false
-    },
-
-    // our Webpack Development Server config
-    devServer: {
-        historyApiFallback: true,
-        contentBase: 'src/public',
-        publicPath: '/dist'
     }
-};
 
-// Helper functions
+};
 
 function root(args) {
     args = Array.prototype.slice.call(arguments, 0);
     return path.join.apply(path, [__dirname].concat(args));
-}
-
-function rootNode(args) {
-    args = Array.prototype.slice.call(arguments, 0);
-    return root.apply(path, ['node_modules'].concat(args));
 }

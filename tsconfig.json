@@ -9,20 +9,22 @@
   },
   "files": [
     "typings/main.d.ts",
+    "app/config/globals.d.ts",
+    "app/bootstrap/bootstrap.ts",
+    "app/bootstrap/vendor.ts",
+    "app/components/app/app.component.ts",
+    "app/components/app/app.component.spec.ts",
+    "app/components/home/home.component.ts",
+    "app/components/home/home.component.spec.ts",
+    "app/directives/x-large.ts",
+    "app/directives/x-large.spec.ts",
+    "app/providers/title.spec.ts",
+    "app/providers/title.ts",
     "test/injector.spec.ts",
-    "test/sanity-test.spec.ts",
-    "src/app/app.spec.ts",
-    "src/app/app.ts",
-    "src/app/directives/x-large.ts",
-    "src/app/directives/x-large.spec.ts",
-    "src/app/providers/title.spec.ts",
-    "src/app/providers/title.ts",
-    "src/app/home/home.ts",
-    "src/bootstrap.ts",
-    "src/vendor.ts"
+    "test/sanity-test.spec.ts"
   ],
   "filesGlob": [
-    "./src/**/*.ts",
+    "./app/**/*.ts",
     "./test/**/*.ts",
     "!./node_modules/**/*.ts"
   ],
